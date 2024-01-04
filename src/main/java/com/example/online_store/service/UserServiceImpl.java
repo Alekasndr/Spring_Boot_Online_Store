@@ -2,6 +2,7 @@ package com.example.online_store.service;
 
 import com.example.online_store.entity.UserEntity;
 import com.example.online_store.exception.UserAlreadyExistException;
+import com.example.online_store.model.User;
 import com.example.online_store.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getUser(Long id) throws NoSuchElementException {
+    public User getUser(Long id) throws NoSuchElementException {
         UserEntity userEntity = userRepo.findById(id).get();
-        return userEntity;
+        return User.getModel(userEntity);
+    }
+
+    @Override
+    public Long delete(Long id) {
+        userRepo.deleteById(id);
+        return id;
     }
 }

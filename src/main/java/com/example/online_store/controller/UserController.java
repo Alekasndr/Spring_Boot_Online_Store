@@ -22,7 +22,7 @@ public class UserController {
             return ResponseEntity.ok(userService.getUser(id));
         } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().body("User not found");
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }
     }
@@ -34,6 +34,15 @@ public class UserController {
             return ResponseEntity.ok("Saved");
         } catch (UserAlreadyExistException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        try {
+            return ResponseEntity.ok(userService.delete(id));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error");
         }

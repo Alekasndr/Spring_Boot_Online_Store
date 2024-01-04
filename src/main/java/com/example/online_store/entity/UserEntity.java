@@ -3,11 +3,15 @@ package com.example.online_store.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "test")
+@Table(name = "user")
 public class UserEntity {
+    @OneToOne(mappedBy = "userEntity")
+    private BasketEntity basketEntity;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "email")
     private String email;
@@ -22,32 +26,32 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
+    }
+
+    void setId(int id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    void setId(Long id) {
-        this.id = id;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     public void setRole(String role) {
