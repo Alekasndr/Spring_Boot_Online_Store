@@ -12,8 +12,26 @@ CREATE TABLE IF NOT EXISTS `online_store`.`user`
     `id`       INT         NOT NULL AUTO_INCREMENT,
     `email`    VARCHAR(80) NOT NULL UNIQUE,
     `password` VARCHAR(30) NOT NULL,
-    `role`     VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`)
+);
+
+-- Table: roles
+CREATE TABLE IF NOT EXISTS `online_store`.`roles`
+(
+    id   INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+
+-- Table for mapping user and roles: user_roles
+CREATE TABLE IF NOT EXISTS `online_store`.`user_roles`
+(
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (role_id) REFERENCES roles (id),
+
+    UNIQUE (user_id, role_id)
 );
 
 -- -----------------------------------------------------
@@ -119,10 +137,10 @@ CREATE TABLE IF NOT EXISTS `online_store`.`type_has_brand`
 (
     `type_id`  INT NOT NULL,
     `brand_id` INT NOT NULL,
-    PRIMARY KEY (`type_id`, `brand_id`),
     FOREIGN KEY (`type_id`)
         REFERENCES `online_store`.`type` (`id`),
     FOREIGN KEY (`brand_id`)
-        REFERENCES `online_store`.`brand` (`id`)
+        REFERENCES `online_store`.`brand` (`id`),
+    UNIQUE (`type_id`, `brand_id`)
 );
 

@@ -2,14 +2,17 @@ package com.example.online_store.service;
 
 import com.example.online_store.entity.UserEntity;
 import com.example.online_store.exception.UserAlreadyExistException;
+import com.example.online_store.exception.UserNotFoundException;
 import com.example.online_store.model.User;
 
 import java.util.NoSuchElementException;
 
 public interface UserService {
-    public UserEntity registration(UserEntity userEntity) throws UserAlreadyExistException;
+    public UserEntity addUser(UserEntity userEntity) throws UserAlreadyExistException;
 
-    public User getUser(Long id) throws NoSuchElementException;
+    public User getUserByEmail(String email) throws UserNotFoundException;
 
-    public Long delete(Long id);
+    public String deleteUser(String string);
+
+    public UserEntity updateUserData(UserEntity userEntity) throws UserNotFoundException;
 }

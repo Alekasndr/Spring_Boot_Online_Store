@@ -2,6 +2,8 @@ package com.example.online_store.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "user")
 public class UserEntity {
@@ -19,9 +21,10 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role")
-
-    private String role;
+    @ManyToMany
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> roles;
 
     public UserEntity() {
     }
@@ -50,11 +53,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public Set<RoleEntity> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
     }
 }
